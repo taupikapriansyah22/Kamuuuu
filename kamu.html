@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buat Kamu</title>
+<style>
+body {
+background-color: #f8f9fa;
+text-align: center;
+font-family: 'Arial', sans-serif;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+height: 100vh;
+margin: 0;
+}
+.container {
+background: white;
+padding: 30px;
+border-radius: 10px;
+box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+max-width: 400px;
+width: 100%;
+text-align: center;
+border: 2px solid #ff4b5c;
+}
+h2 {
+color: #333;
+margin-bottom: 20px;
+}
+.button {
+background-color: #ff4b5c;
+color: white;
+border: none;
+padding: 10px 20px;
+font-size: 16px;
+cursor: pointer;
+border-radius: 5px;
+margin: 10px;
+transition: 0.3s;
+}
+.button:hover {
+background-color: #d43f50;
+}
+#btnEngga {
+position: absolute;
+}
+</style>
+</head>
+<body>
+<script>
+alert("Halo Cantik ❤️");
+let countEngga1 = 0;
+let countEngga2 = 0;
+let messagesEngga1 = ["Kamu kok gak kangen aku sih?", "Beneran ga kangen?",
+"Yakin?"];
+let messagesEngga2 = ["Kok gituu 😢", "Ayolaa 😭", "Mau yaa plisss 🥺"];
+function tanyaEngga1() {
+if (countEngga1 < messagesEngga1.length) {
+alert(messagesEngga1[countEngga1]);
+countEngga1++;
+} else {
+pindahTombol("btnEngga");
+}
+}
+function tanyaEngga2() {
+if (countEngga2 < messagesEngga2.length) {
+alert(messagesEngga2[countEngga2]);
+countEngga2++;
+} else {
+pindahTombol("btnEngga");
+}
+}
+function pindahTombol(id) {
+let btn = document.getElementById(id);
+let x = Math.random() * (window.innerWidth - 100);
+let y = Math.random() * (window.innerHeight - 50);
+btn.style.left = x + "px";
+btn.style.top = y + "px";
+}
+function lanjutKangen() {
+getaran();
+notifikasi("Horeee! Makasih yaaa sayang.");
+document.getElementById("container").style.display = "none";
+let newDiv = document.createElement("div");
+newDiv.classList.add("container");
+newDiv.innerHTML = `
+<h2>Mau gak jadi pacar aku?</h2>
+<button onclick="jawabMau()" class="button">Mau</button>
+<button id="btnEngga" class="button" onclick="tanyaEngga2()">Enggak</button>
+`;
+document.body.appendChild(newDiv);
+}
+function jawabMau() {
+getaran();
+let messages = [
+"YESS!!",
+"Makasih yaaa udah nerima aku ❤️",
+"Aku bakal selalu sayang sama kamu",
+"Selalu cinta sama kamu",
+"Love you! 💕"
+];
+messages.forEach((msg, i) => {
+setTimeout(() => alert(msg), i * 1000);
+});
+}
+function getaran() {
+if (navigator.vibrate) {
+navigator.vibrate(200);
+}
+}
+function notifikasi(pesan) {
+if ("Notification" in window && Notification.permission === "granted") {
+new Notification(pesan);
+} else if ("Notification" in window && Notification.permission !== "denied") {
+Notification.requestPermission().then(permission => {
+if (permission === "granted") {
+new Notification(pesan);
+}
+});
+}
+}
+</script>
+<div id="container" class="container">
+<h2>Kamu kangen aku gak?</h2>
+<button onclick="lanjutKangen()" class="button">Kangen</button>
+<button id="btnEngga" onclick="tanyaEngga1()" class="button">Enggak</button>
+</div>
+</body>
+</html>
